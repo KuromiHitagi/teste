@@ -15,22 +15,18 @@ body {
 
 header {
     width: 100%;
-    min-height: 10%;
+    height: 10%;
 
     text-align: center;
     background: #e30613;
-    color: #fff;
-
-    border: 2px solid black;
+    color: #ffffff;
 }
 
 main {
     flex: 1;
 
     width: 100%;
-    height: min(700px, 92%);
-
-    border: 2px solid black;
+    height: 90%;
 
     display: flex;
     align-items: center;
@@ -41,7 +37,7 @@ main {
 form, article{
     background: #fff;
     padding: 18px;
-    margin-bottom: 14px;
+    margin: 20px 0;
     border-radius: 8px;
 }
 input, textarea, button{

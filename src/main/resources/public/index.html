@@ -9,15 +9,29 @@
 </head>
 
 <body>
-    
+
     <header>
         <h1>Mural de Recados</h1>
         <p>Front + Java + JDBC + MySQL</p>
     </header>
 
     <main>
-        <h1>Abubleble</h1>
+        <form id="form-recado">
+            <label for="autor">Nome do Autor</label>
+            <input id="autor" name="autor" maxlength="80" type="text" required>
+
+            <label for="mensagem">Recado</label>
+            <textarea id="mensagem" name="mensagem" maxlength="255" type="text" required>
+            </textarea>
+
+            <button type="submit">Publicar recado</button>
+        </form>
+        <p id="aviso"></p>
+        <h2>Recados publicados</h2>
+
+        <section id="lista-recados"></section>
     </main>
 </body>
+<script src="./script.js"></script>
 
 </html>
