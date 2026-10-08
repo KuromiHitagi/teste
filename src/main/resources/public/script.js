@@ -3,7 +3,7 @@ const lista = document.querySelector("#lista-recados")
 const aviso = document.querySelector("#aviso")
 
 async function carregarRecados() {
-    const resposta = await fetch("/api/recados")
+    const resposta = await fetch("http://localhost:8080/api/recados")
     const recados = await resposta.json()
 
     lista.innerHTML = ""
@@ -26,7 +26,7 @@ formulario.addEventListener("submit", async (e) => {
     aviso.textContent = "Salvando..."
 
     const dados = new URLSearchParams(new FormData(formulario))
-    const resposta = await fetch("/api/recados", {
+    const resposta = await fetch("http://localhost:8080/api/recados", {
         method: "POST",
         body: dados
     })

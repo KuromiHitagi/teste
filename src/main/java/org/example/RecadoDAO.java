@@ -20,7 +20,7 @@ public class RecadoDAO {
     }
     public List<Recado> listar() throws SQLException{
         String sql = """
-                    select id, autor, mensagem from recado order by desc;
+                    select id, autor, mensagem from recado order by id desc;
                 """;
         List<Recado> recados = new ArrayList<>();
 

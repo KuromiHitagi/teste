@@ -32,6 +32,7 @@ public class Recado {
     }
 
     public String escapar(String texto) {
+        if (texto == null) return "";
         return texto.replace("\\", "\\\\")
                 .replace("\"", "\\\"")
                 .replace("\r", "")

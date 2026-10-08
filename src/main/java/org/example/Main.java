@@ -22,26 +22,26 @@ public class Main {
 
     public static void main(String[] args) {
         try {
-            testarConexão();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+            testarConexao();
+        } catch (Throwable e) {
+            System.err.println("=== ERROR CONNECTING TO DATABASE ===");
+            e.printStackTrace();
+            return; // Prevents process crash, prints exact error
         }
 
-        HttpServer server;
         try {
-            server = HttpServer.create(new InetSocketAddress("0.0.0.0", 8080), 0);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        server.createContext("api//recados", Main::atenderRecados);
-        server.createContext("/", Main::abrirPagina);
-        server.start();
+            HttpServer server = HttpServer.create(new InetSocketAddress("0.0.0.0", 8080), 0);
+            server.createContext("/api/recados", Main::atenderRecados);
+            server.createContext("/", Main::abrirPagina);
+            server.start();
 
-        System.out.println("Mural aberto em http://localhost:8080");
-        System.out.println("Celulares podem acessar pelo ip da rede local na porta 8080");
+            System.out.println("Mural aberto em http://localhost:8080");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public static void testarConexão() throws SQLException {
+    public static void testarConexao() throws SQLException {
         try (Connection ignored = Conexao.abrir()) {
             System.out.println("Banco de dados Conectado");
         }
@@ -92,12 +92,13 @@ public class Main {
         StringBuilder json = new StringBuilder("[");
 
         for (int i = 0; i < recados.size(); i++) {
-            json.append(",");
             if (i > 0) {
-                json.append(recados.get(i).toJson());
+                json.append(",");
             }
+            json.append(recados.get(i).toJson());
         }
         json.append("]");
+
         responder(troca, 200, json.toString());
     }
 
@@ -115,7 +116,7 @@ public class Main {
     }
 
     private static void abrirPagina(HttpExchange troca) throws IOException {
-        if (troca.getRequestMethod().equals("GET")) {
+        if (!troca.getRequestMethod().equals("GET")) {
             responder(troca, 405, "Metodo não permitido");
             return;
         }
